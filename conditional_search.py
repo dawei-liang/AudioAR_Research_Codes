@@ -2,7 +2,7 @@
 """
 Created on Fri Mar  9 15:58:07 2018
 
-@author: david
+@author: david 
 """
 
 #%%   
