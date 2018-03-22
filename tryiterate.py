@@ -75,4 +75,4 @@ flushing = np.mean(x[l[0],:,:], axis = 0)
 for i in range (1,len(l)):
         flushing = np.vstack((flushing, np.mean(x[l[i],:,:], axis = 0)))
         
-print(flushing.shape[0])
+print(flushing.shape[0]) 
