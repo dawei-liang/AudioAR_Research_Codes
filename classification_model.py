@@ -149,76 +149,76 @@ print ('audioset outdoor.shape:',outdoor.shape)
 print ('audioset typing.shape:',typing.shape)
 
 #%%
-#''' Clutering for video data (v1: cluster within each video)'''
-## func for similarity comparison
-##def check_similarity(features):
-##    file_test = pd.read_csv('./test_data/street_bus_shop_kitchen.csv')
-##    test_data = file_test.values
-##    allfeatures = np.vstack((features, test_data))   # features + testdata
-##    kmeans = KMeans(n_clusters=3, random_state=0)
-##    kmeans.fit(allfeatures)
-##    return(kmeans.labels_)
-##clusters = check_similarity(chewing)  
-#
-## func for extracting similar features each video
-#def cluster(features, key):
-#
-#    if key == 'w':
-#        kmeans = KMeans(n_clusters=1, random_state=0)   
-#    elif key == 'b':
-#        kmeans = KMeans(n_clusters=1, random_state=0)   
-#    elif key == 'o':
-#        kmeans = KMeans(n_clusters=1, random_state=0)   
-#    elif key == 's':
-#        kmeans = KMeans(n_clusters=1, random_state=0)   
-#    elif key == 't':
-#        kmeans = KMeans(n_clusters=1, random_state=0)   
-#
-#    i = 0
-#    remains = features[0,:]
-#    while i != features.shape[0]:   # Each video
-#        
-#        temp2 = features[i,:]   # Each video
-#        for j in range (i+1,i+10):   # Each frame
-#            temp2 = np.vstack((temp2, features[j,:]))
-#        #print(temp2.shape)
-#        
-#        kmeans.fit(temp2)   # Each video
-#        labels = kmeans.labels_
-#        mode, count = stat.mode(labels)   # Get mode label for each video
-#        
-#        avg = np.empty(temp2[0,:].shape)
-#        count = 0
-#        for k in range (0,10):   # Each frame
-#            if labels[k] == mode:
-#                avg = np.vstack((avg, temp2[k,:]))
-#                count += 1
-#        avg = np.mean(avg, axis = 0)
-#        remains = np.vstack((remains, avg))
-#                #print(labels[k])
-#        i += 10
-#        #print(i)
-#    return remains
-#remains_speech = cluster(speech,'s')
-#print('# of clustered speech data:', remains_speech[1:,:].shape)
-#remains_washing = cluster(washing,'w')
-#print('# of clustered washing data:', remains_washing[1:,:].shape)
-#remains_bus = cluster(bus,'b')
-#print('# of clustered bus data:', remains_bus[1:,:].shape)
-#remains_outdoor = cluster(outdoor,'o')
-#print('# of clustered outdoor data:', remains_outdoor[1:,:].shape)
-#remains_typing = cluster(typing,'t')
-#print('# of clustered typing data:', remains_typing[1:,:].shape)
-#      
-#training_data = np.vstack((remains_washing[1:,:] , remains_bus[1:,:]))   ### Set up training set: w,b,o,s,t
-##training_data = np.vstack((remains_bus[1:,:] , remains_outdoor[1:,:]))   ### Set up training set: b,o,s,t
-#training_data = np.vstack((training_data, remains_outdoor[1:,:]))
-#training_data = np.vstack((training_data, remains_speech[1:,:]))
-#training_data = np.vstack((training_data, remains_typing[1:,:]))
+''' Clutering for video data (version 1: clustering within each video)'''
+# func for similarity comparison
+#def check_similarity(features):
+#    file_test = pd.read_csv('./test_data/street_bus_shop_kitchen.csv')
+#    test_data = file_test.values
+#    allfeatures = np.vstack((features, test_data))   # features + testdata
+#    kmeans = KMeans(n_clusters=3, random_state=0)
+#    kmeans.fit(allfeatures)
+#    return(kmeans.labels_)
+#clusters = check_similarity(chewing)  
+
+# func for extracting similar features each video
+def cluster(features, key):
+
+    if key == 'w':
+        kmeans = KMeans(n_clusters=1, random_state=0)   
+    elif key == 'b':
+        kmeans = KMeans(n_clusters=1, random_state=0)   
+    elif key == 'o':
+        kmeans = KMeans(n_clusters=1, random_state=0)   
+    elif key == 's':
+        kmeans = KMeans(n_clusters=1, random_state=0)   
+    elif key == 't':
+        kmeans = KMeans(n_clusters=1, random_state=0)   
+
+    i = 0
+    remains = features[0,:]
+    while i != features.shape[0]:   # Each video
+        
+        temp2 = features[i,:]   # Each video
+        for j in range (i+1,i+10):   # Each frame
+            temp2 = np.vstack((temp2, features[j,:]))
+        #print(temp2.shape)
+        
+        kmeans.fit(temp2)   # Each video
+        labels = kmeans.labels_
+        mode, count = stat.mode(labels)   # Get mode label for each video
+        
+        avg = np.empty(temp2[0,:].shape)
+        count = 0
+        for k in range (0,10):   # Each frame
+            if labels[k] == mode:
+                avg = np.vstack((avg, temp2[k,:]))
+                count += 1
+        avg = np.mean(avg, axis = 0)
+        remains = np.vstack((remains, avg))
+                #print(labels[k])
+        i += 10
+        #print(i)
+    return remains
+remains_speech = cluster(speech,'s')
+print('# of clustered speech data:', remains_speech[1:,:].shape)
+remains_washing = cluster(washing,'w')
+print('# of clustered washing data:', remains_washing[1:,:].shape)
+remains_bus = cluster(bus,'b')
+print('# of clustered bus data:', remains_bus[1:,:].shape)
+remains_outdoor = cluster(outdoor,'o')
+print('# of clustered outdoor data:', remains_outdoor[1:,:].shape)
+remains_typing = cluster(typing,'t')
+print('# of clustered typing data:', remains_typing[1:,:].shape)
+      
+training_data = np.vstack((remains_washing[1:,:] , remains_bus[1:,:]))   ### Set up training set: w,b,o,s,t
+#training_data = np.vstack((remains_bus[1:,:] , remains_outdoor[1:,:]))   ### Set up training set: b,o,s,t
+training_data = np.vstack((training_data, remains_outdoor[1:,:]))
+training_data = np.vstack((training_data, remains_speech[1:,:]))
+training_data = np.vstack((training_data, remains_typing[1:,:]))
 
 
 #%%
-''' Clutering for video data(v2: cluster across all videos)'''
+''' Clutering for video data(version 2: clustering across all videos)'''
 
 # func for similarity comparison
 #def check_similarity(features):
@@ -298,7 +298,7 @@ for i in range(remains_typing[1:,:].shape[0]):   ### new
 print('# of typing labels:', remains_typing[1:,:].shape[0])      
       
 #%%
-''' Train and test '''
+''' Train and test by CNN'''
 
 file_test = pd.read_csv('./test_data/overall.csv')
 #file_test2 = pd.read_csv('./test_data/toilet.csv')
@@ -333,110 +333,104 @@ prediction.append(SVC)
 
 #%% Classification by CNN
 
-#tf.reset_default_graph()
-#
-#inputs = tf.placeholder(tf.float32, (None,128,1,1), name='input')
-## Set up your label placeholders
-#labelscnn = tf.placeholder(tf.int64, (None), name='labelscnn')
-#train_labels_cnn = labels
-#
-## Step 1: define the compute graph of your CNN here
-##   Use 5 conv2d layers (tf.contrib.layers.conv2d) and one pooling layer tf.contrib.layers.max_pool2d or tf.contrib.layers.avg_pool2d.
-##   The output of the network should be a None x 1 x 1 x 6 tensor.
-##   Make sure the last conv2d does not have a ReLU: activation_fn=None
-#h = tf.contrib.layers.conv2d(inputs, 1, (5,5), stride=2, scope="conv1")
-#h = tf.contrib.layers.conv2d(h, 2, (5,5), stride=2, scope="conv2")
-#h = tf.contrib.layers.conv2d(h, 3, (5,5), stride=2, scope="conv3")
-#h = tf.contrib.layers.conv2d(h, 5, (5,5), stride=2, scope="conv4")
-#h = tf.contrib.layers.conv2d(h, 7, (3,3), stride=2, scope="conv5")
-#
-##h = tf.contrib.layers.max_pool2d(h, (3,3), stride=2, scope="pool")
-#h = tf.contrib.layers.conv2d(h, 3, (1,1), stride=2, activation_fn=None, scope="conv6")
-## The input here should be a   None x 1 x 1 x 6   tensor
-#output = tf.identity(tf.contrib.layers.flatten(h), name='output')
-#
-## Step 2: use a classification loss function (from assignment 3)
-#loss1 = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=output, labels=labelscnn))
-#
-## Step 3: create an optimizer (from assignment 3)
-#optimizer = tf.train.MomentumOptimizer(0.001, 0.9)
-#
-## Step 4: use that optimizer on your loss function (from assignment 3)
-#minimizer = optimizer.minimize(loss1)
-#correct = tf.equal(tf.argmax(output, 1), labelscnn)
-#accuracy = tf.reduce_mean(tf.cast(correct, tf.float32))
-#
-#print( "Total number of variables used ", np.sum([v.get_shape().num_elements() for v in tf.trainable_variables()]), '/', 100000 )
-#
-#
-#
-### Train model
-## Batch size
-#BS = 1
-#
-## Start a session
-#sess = tf.Session()
-#
-## Set up training
-#sess.run(tf.global_variables_initializer())
-#
-## This is a helper function that trains your model for several epochs un shuffled data
-## train_func should take a single step in the optmimzation and return accuracy and loss
-##   accuracy, loss = train_func(batch_images, batch_labels)
-## HINT: train_func should call sess.run
-#def train(train_func):
-#    # An epoch is a single pass over the training data
-#    for epoch in range(5):
-#        # Let's shuffle the data every epoch
-#        np.random.seed(epoch)
-#        np.random.shuffle(training_data)
-#        print('training_data.shape:', training_data.shape)
-#        np.random.seed(epoch)
-#        np.random.shuffle(train_labels_cnn)
-#        # Go through the entire dataset once
-#        accs, losss = [], []
-#        for i in range(0, training_data.shape[0]-BS+1, BS):
-#            # Train a single batch
-#            batch_data, batch_labels = training_data[i:i+BS], train_labels_cnn[i:i+BS]
-#            acc, loss = train_func(batch_data, batch_labels)
-#            accs.append(acc)
-#            losss.append(loss)
-#        print('[%3d] Accuracy: %0.3f  \t  Loss: %0.3f'%(epoch, np.mean(accs), np.mean(losss)))
-#
-#
-## Train convnet
-#print('Convnet')
-#for e in range(len(train_labels_cnn)):
-#    if train_labels_cnn[e] == 'c':
-#        train_labels_cnn[e] = 0
-#    elif train_labels_cnn[e] == 'w':
-#        train_labels_cnn[e] = 1
-#    elif train_labels_cnn[e] == 'b':
-#        train_labels_cnn[e] = 2
-#    elif train_labels_cnn[e] == 'o':
-#        train_labels_cnn[e] = 3
-#    elif train_labels_cnn[e] == 's':
-#        train_labels_cnn[e] = 4
-#    elif train_labels_cnn[e] == 't':
-#        train_labels_cnn[e] = 5
-#
-#train_labels_cnn = np.asarray(train_labels_cnn)
-#print('training labels for CNN:', train_labels_cnn.shape)
-#
-#training_data = np.reshape(training_data, (training_data.shape[0],128,1,1))
-#
-#def mytrainfunc(training_data, train_labels_cnn):
-#    _, acc, loss = sess.run([minimizer, accuracy, loss1], feed_dict={inputs: training_data, labelscnn: train_labels_cnn})
-#    return acc, loss
-#
-#train(mytrainfunc)
-#
-#
-#
-#
-#
-##np.reshape(trainImages[:,:,0,-1], (784,1))
-#test_data_cnn = np.reshape(test_data_mean,(test_data_mean.shape[0],128,1,1)) 
+tf.reset_default_graph()
+
+inputs = tf.placeholder(tf.float32, (None,128,1,1), name='input')
+# Set up your label placeholders
+labelscnn = tf.placeholder(tf.int64, (None), name='labelscnn')
+train_labels_cnn = labels
+
+
+h = tf.contrib.layers.conv2d(inputs, 1, (5,5), stride=2, scope="conv1")
+h = tf.contrib.layers.conv2d(h, 2, (5,5), stride=2, scope="conv2")
+h = tf.contrib.layers.conv2d(h, 3, (5,5), stride=2, scope="conv3")
+h = tf.contrib.layers.conv2d(h, 5, (5,5), stride=2, scope="conv4")
+h = tf.contrib.layers.conv2d(h, 7, (3,3), stride=2, scope="conv5")
+
+#h = tf.contrib.layers.max_pool2d(h, (3,3), stride=2, scope="pool")
+h = tf.contrib.layers.conv2d(h, 3, (1,1), stride=2, activation_fn=None, scope="conv6")
+# The input here should be a   None x 1 x 1 x 6   tensor
+output = tf.identity(tf.contrib.layers.flatten(h), name='output')
+
+loss1 = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=output, labels=labelscnn))
+
+optimizer = tf.train.MomentumOptimizer(0.001, 0.9)
+
+minimizer = optimizer.minimize(loss1)
+correct = tf.equal(tf.argmax(output, 1), labelscnn)
+accuracy = tf.reduce_mean(tf.cast(correct, tf.float32))
+
+print( "Total number of variables used ", np.sum([v.get_shape().num_elements() for v in tf.trainable_variables()]), '/', 100000 )
+
+
+
+## Train model
+# Batch size
+BS = 1
+
+# Start a session
+sess = tf.Session()
+
+# Set up training
+sess.run(tf.global_variables_initializer())
+
+# This is a helper function that trains your model for several epochs un shuffled data
+# train_func should take a single step in the optmimzation and return accuracy and loss
+#   accuracy, loss = train_func(batch_images, batch_labels)
+# HINT: train_func should call sess.run
+def train(train_func):
+    # An epoch is a single pass over the training data
+    for epoch in range(5):
+        # Let's shuffle the data every epoch
+        np.random.seed(epoch)
+        np.random.shuffle(training_data)
+        print('training_data.shape:', training_data.shape)
+        np.random.seed(epoch)
+        np.random.shuffle(train_labels_cnn)
+        # Go through the entire dataset once
+        accs, losss = [], []
+        for i in range(0, training_data.shape[0]-BS+1, BS):
+            # Train a single batch
+            batch_data, batch_labels = training_data[i:i+BS], train_labels_cnn[i:i+BS]
+            acc, loss = train_func(batch_data, batch_labels)
+            accs.append(acc)
+            losss.append(loss)
+        print('[%3d] Accuracy: %0.3f  \t  Loss: %0.3f'%(epoch, np.mean(accs), np.mean(losss)))
+
+
+# Train convnet
+print('Convnet')
+for e in range(len(train_labels_cnn)):
+    if train_labels_cnn[e] == 'c':
+        train_labels_cnn[e] = 0
+    elif train_labels_cnn[e] == 'w':
+        train_labels_cnn[e] = 1
+    elif train_labels_cnn[e] == 'b':
+        train_labels_cnn[e] = 2
+    elif train_labels_cnn[e] == 'o':
+        train_labels_cnn[e] = 3
+    elif train_labels_cnn[e] == 's':
+        train_labels_cnn[e] = 4
+    elif train_labels_cnn[e] == 't':
+        train_labels_cnn[e] = 5
+
+train_labels_cnn = np.asarray(train_labels_cnn)
+print('training labels for CNN:', train_labels_cnn.shape)
+
+training_data = np.reshape(training_data, (training_data.shape[0],128,1,1))
+
+def mytrainfunc(training_data, train_labels_cnn):
+    _, acc, loss = sess.run([minimizer, accuracy, loss1], feed_dict={inputs: training_data, labelscnn: train_labels_cnn})
+    return acc, loss
+
+train(mytrainfunc)
+
+
+
+
+
+#np.reshape(trainImages[:,:,0,-1], (784,1))
+test_data_cnn = np.reshape(test_data_mean,(test_data_mean.shape[0],128,1,1))
 testLabels = np.empty(test_data_mean.shape[0])
 print('testLabels.shape: ',testLabels.shape)
 testLabels[0:150] = 3
@@ -522,27 +516,23 @@ print('SVM: # of c,w,b,o,s,t: ', sum(c_svm),sum(w_svm),sum(b_svm),sum(o_svm),sum
       '\n s_accuracy: %.5f' % s_accuracy,
       '\n t_accuracy: %.5f' % t_accuracy)
 
-#c_rf=np.zeros(len(prediction[1]))   # For RF
-#w_rf=np.zeros(len(prediction[1]))
-#b_rf=np.zeros(len(prediction[1]))
-#o_rf = np.zeros(len(prediction[1]))
-#s_rf = np.zeros(len(prediction[1]))
-#t_rf = np.zeros(len(prediction[1]))
-#for i in range (len(prediction[1])):
-#    if prediction[1][i] == 'c':
-#        c_rf[i] = 1
-#    elif prediction[1][i] == 'w':
-#        w_rf[i] = 1
-#    elif prediction[1][i] == 'b':
-#        b_rf[i] = 1
-#    elif prediction[1][i] == 'o':
-#        o_rf[i] = 1
-#    elif prediction[1][i] == 's':
-#        s_rf[i] = 1
-#    elif prediction[1][i] == 't':
-#        t_rf[i] = 1
-##svmn = len(prediction[0]) - svmp
-#print('RF: # of c,w,b,o,s,t: ', sum(c_rf),sum(w_rf),sum(b_rf),sum(o_rf),sum(s_rf),sum(t_rf))
+print('Input test shape: ' + str(test_data_cnn.shape))
+print('Labels test shape: ' + str(testLabels.shape))
+
+val_accuracy, val_loss = sess.run([accuracy, loss1], feed_dict={inputs: test_data_cnn, labelscnn: testLabels})
+# Calculate batch loss and accuracy
+#x = tf.placeholder("float", shape=[None, 128,1,1])
+#W = tf.Variable(tf.zeros([test_data.shape[0],128,1,1]))
+#b = tf.Variable(tf.zeros([10]))
+#y = tf.nn.softmax(tf.matmul(x,W) + b)
+#
+#sess = train(mytrainfunc)
+#
+#prediction=tf.argmax(y,1)
+##output= sess.run(tf.argmax(prediction,1),feed_dict={x: test_data})
+#print (prediction.eval(feed_dict={x: test_data}, session=sess))
+
+print("ConvNet Validation Accuracy: ", val_accuracy)
     
 #%%
 # Confusion Matrix
