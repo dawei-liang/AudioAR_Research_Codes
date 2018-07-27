@@ -4,7 +4,7 @@ Source codes of the Audio Set activity recognition research
 
 Source training data can be accessed from on line. Details can be seen on our paper.
 
-We welcome you to adopt our work for your own research. If you would like to refer it, we would appreciate your citation to: 
+We welcome you to adopt our work for your own research. If you would like to refer it, we appreciate your citation to: 
 
 Thank you!
 
