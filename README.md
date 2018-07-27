@@ -16,3 +16,5 @@ Some of the codes are written in the form of IPython notebook and some are in Py
 Oversampling using SMOTE and random method: _main_resample.py (loading_data_and_labels.py, resampling.py)_
 
 Loading data and training the classification network/CNN dedicated study: _cnn.ipynb_
+
+Loading data and training the baseline (Random Forest)/baseline dedicated study: _rf.ipynb_
