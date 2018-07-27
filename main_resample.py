@@ -36,7 +36,7 @@ classes = ['Bathing',
           'Washing',
           'Chatting', 
           'Strolling']
-resampling_mode = 'random'   # ['SMOTE' or 'random']   # May change the desired save file names in sampling.py 
+resampling_mode = 'random'   # ['SMOTE' or 'random']   # May change the desired save file names in resampling.py 
 
 #%%
 
