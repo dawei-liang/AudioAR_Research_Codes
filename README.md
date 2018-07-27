@@ -11,7 +11,7 @@ Thank you!
 
 Instruction:
 
-Some of the codes are written in the form of IPython notebook. This is mainly because this project has been developed for several different stages and versions and on various systems. The final version of the project was run on the Texas Advanced Computing Center (TACC) Maverick (Linux) system, based on NVIDIA K40 GPU and Tensorflow-gpu 1.0.0.
+Some of the codes are written in the form of IPython notebook and some are in Python script. This is mainly because this project has been developed for several different stages and versions and on various systems. The final version of the project was run on the Texas Advanced Computing Center (TACC) Maverick (Linux) system, based on NVIDIA K40 GPU and Tensorflow-gpu 1.0.0.
 
 Oversampling using SMOTE and random method: _main_resample.py (loading_data_and_labels.py, resampling.py)_
 
