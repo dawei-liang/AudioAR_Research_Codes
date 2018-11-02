@@ -2,7 +2,8 @@
 """
 Created on Tue Feb 06 00:51:59 2018
 
-@author: david
+@Adopted from Google VGGish Github: https://github.com/tensorflow/models/tree/master/research/audioset
+    modifier: david, research use only
 """
 
 # Copyright 2017 The TensorFlow Authors All Rights Reserved.
@@ -56,10 +57,19 @@ import vggish_params
 import vggish_postprocess
 import vggish_slim
 
+def del_all_flags(FLAGS):
+    flags_dict = FLAGS._flags()
+    keys_list = [keys for keys in flags_dict]
+    for keys in keys_list:
+        FLAGS.__delattr__(keys)
+del_all_flags(tf.flags.FLAGS)
+
 flags = tf.app.flags
 
+root_dir = './test_data/summer_2018_freesound/scripted study/rebacca/14/strolling'
+
 flags.DEFINE_string(   # Set the input wav file path
-    'wav_file', './test_data/typing.wav',
+    'wav_file', root_dir + '.wav',
     'Path to a wav file. Should contain signed 16-bit PCM samples. '
     'If none is provided, a synthetic sound is used.')
 
@@ -72,11 +82,11 @@ flags.DEFINE_string(
     'Path to the VGGish PCA parameters file.')
 
 flags.DEFINE_string(   # Set the output tfrecords path
-    'tfrecord_file', './test_data/typing.tfrecords',
+    'tfrecord_file', root_dir + '.tfrecords',
     'Path to a TFRecord file where embeddings will be written.')
 
 FLAGS = flags.FLAGS
- 
+
 
 def main(_):
   # In this simple example, we run the examples from a single audio file through the model. 
@@ -137,6 +147,8 @@ def main(_):
 
   if writer:
     writer.close()
+    
+
 
 if __name__ == '__main__':
   tf.reset_default_graph()
