@@ -13,7 +13,9 @@ import shutil
 import numpy as np
 import pandas as pd
 
-audio_record = './test_data/street_bus_shop_kitchen.tfrecords'
+root_dir = './test_data/summer_2018_freesound/scripted study/cai/14/strolling'
+
+audio_record = root_dir + '.tfrecords'
 vid_ids = []
 labels = []
 start_time_seconds = [] # in secondes
@@ -59,7 +61,7 @@ for example in tf.python_io.tf_record_iterator(audio_record):
 print(each_row)
 #print(feat_audio)
 
-with open('./test_data/street_bus_shop_kitchen.csv','w') as f:
+with open(root_dir + '.csv','w') as f:
     wr = csv.writer(f,lineterminator='\n')
     for i in range(n_frames):
         wr.writerow(rows[i,:])
