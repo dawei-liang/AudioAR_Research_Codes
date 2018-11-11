@@ -2,9 +2,11 @@
 """
 Created on Wed Feb  7 01:11:07 2018
 
-@author: david
+ADOPTED FROM: https://stackoverflow.com/questions/42703849/audioset-and-tensorflow-understanding
+
+@modifier: david
 """
-## Cite from https://stackoverflow.com/questions/42703849/audioset-and-tensorflow-understanding ##
+
 
 import tensorflow as tf
 import os
