@@ -27,3 +27,5 @@ Oversampling using SMOTE and random method: _main_resample.py (loading_data_and_
 Loading data and training the classification network/CNN dedicated study: _cnn.ipynb_
 
 Loading data and training the baseline (Random Forest)/baseline dedicated study: _rf.ipynb_
+
+Show the distribution of predicted confidence: _predict_class_confidence.py_
