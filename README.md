@@ -29,3 +29,5 @@ Loading data and training the classification network/CNN dedicated study: _cnn.i
 Loading data and training the baseline (Random Forest)/baseline dedicated study: _rf.ipynb_
 
 Show the distribution of predicted confidence: _predict_class_confidence.py_
+
+Cross validation on user data: _validate_user_data_resample.py_, _validate_user_data_trainCNN.py_
