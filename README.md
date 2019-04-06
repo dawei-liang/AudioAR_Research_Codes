@@ -6,11 +6,15 @@ Source training data can be accessed from on line. Details can be seen on our pa
 
 We welcome you to adopt our work for your own research. If you would like to refer it, we appreciate your citation to: 
 
-@article{liang2018audioar,
-  title={AudioAR: Audio-Based Activity Recognition with Large-Scale Acoustic Embeddings from YouTube Videos},
+@article{liang2019audio,
+  title={Audio-Based Activities of Daily Living (ADL) Recognition with Large-Scale Acoustic Embeddings from Online Videos},
   author={Liang, Dawei and Thomaz, Edison},
-  journal={arXiv preprint arXiv:1810.08691},
-  year={2018}
+  journal={Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies},
+  volume={3},
+  number={1},
+  pages={17},
+  year={2019},
+  publisher={ACM}
 }
 
 Thank you!
